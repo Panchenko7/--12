@@ -1,22 +1,57 @@
-number_tickets = int (input("Введите нужное колличество билетов:"))
-price_ticket = 0
 
-for i in range(number_tickets):
-    age = int(input("Введите ваш возраст:"))
-    i+= 1
-    if age < 18:
-        print("Бесплатно" )
-    elif 18 <= age < 25:
-        price_ticket+= 990
-        print ("Билет стоит 990 рублей")
-    if age >= 25:
-        price_ticket +=1390
-        print("Билет стоит 1390 рублей")
-if number_tickets > 3:
-    price_ticket = price_ticket* 0.9
-    print("Стоимость билетов с 10% скидкой для 3+ человек:",price_ticket)
-else:
-    print("Общая сумма к оплате", price_ticket)
+
+try:
+    list_of_numbers=list(map(int,input("Введите последовательность чисел через пробел:").split ()))
+    any_number=int(input(("Введите любое число:")))
+    import random
+    def sort(array,left,right):
+        a=random.choice(array[left:right+1])
+        p,i=left,right
+        if p<=i:
+            while array[p]<a:
+                p+=1
+            while array[i]>a:
+                i-=1
+            if p<=i:
+                array[p],array[i]=array[i],array[p]
+                p+=1
+                i-=1
+
+        if i >left:
+            sort(array,left,i)
+        if True > p:
+            sort(array,p,right)
+
+        return array
+    def binary_search_position(array,element,left,right):
+        global any_number
+        if left>right:
+            return False
+        middle=(right+left)//2
+        if array[middle-1]<element<=array[middle]:
+            return(middle-1)
+        elif element<=array[middle-1]:
+            return(binary_search_position(array,element,left,middle-1))
+        elif element>array[middle]:
+            return(binary_search_position(array,element,middle+1,right))
+    ind=binary_search_position(list_of_numbers,any_number,0,len(list_of_numbers)-1)
+    if ind :
+        print("Номер позиции элемента,удовлетворяющего условиям-",ind)
+    else:
+        print("Элемент,удовлетворяющий условиям,отсутствует")
+except ValueError:
+    print("Введите числовые данные")
+
+
+
+
+
+
+
+
+
+
+
 
 
 
